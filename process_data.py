@@ -33,10 +33,10 @@ def process_data(directory, filename, x_uncertainty=0, y_uncertainty=0):
             f.write('x\ty\tdx\tdy\n')
             for i in range(len(data)):
                 
-                if data[i][0] >= -0.000005:
-                    f.write(f'{data[i][0]:.5f}\t{data[i][1]:.5f} \t{x_uncertainty:.6f}\t{y_uncertainty:.6f}')
-                    if i != len(data) - 1:
-                        f.write('\n')
+                # if data[i][0] >= -0.000005:
+                f.write(f'{data[i][0]:.5f}\t{data[i][1]:.5f} \t{x_uncertainty:.6f}\t{y_uncertainty:.6f}')
+                if i != len(data) - 1:
+                    f.write('\n')
     else:
         with open(f'{directory}/processed/{filename}', 'w') as f:
             f.write('x\ty\tdx\tdy\n')
@@ -47,13 +47,18 @@ def process_data(directory, filename, x_uncertainty=0, y_uncertainty=0):
 
 
 
-process_data('exercise_data_1', 'x.txt', 0.000005, 0.000005)
-process_data('exercise_data_1', 'cosx.txt', 0.000005, 0.000005)
-process_data('exercise_data_1', 'cos2x.txt', 0.000005, 0.000005)
-process_data('exercise_data_1', 'cos2_2x.txt', 0.000005, 0.000005)
+# process_data('data/1', 'x.txt', 0.000005, 0.000005)
+# process_data('data/1', 'cosx.txt', 0.000005, 0.000005)
+# process_data('data/1', 'cos2x.txt', 0.000005, 0.000005)
+# process_data('data/1', 'cos2_2x.txt', 0.000005, 0.000005)
 
-process_data('exercise_data_2', 'x.txt', 0.000005, 0.000005)
-process_data('exercise_data_2', 'cosx.txt', 0.000005, 0.000005)
-process_data('exercise_data_2', 'cos2x.txt', 0.000005, 0.000005)
-process_data('exercise_data_2', 'cos2_2x.txt', 0.000005, 0.000005)
+process_data('data/2', 'x2.txt', 0.000005, 0.000005)
+process_data('data/2', 'cosx2.txt', 0.000005, 0.000005)
+process_data('data/2', 'cos2x2.txt', 0.000005, 0.000005)
+process_data('data/2', 'cos2_2x2.txt', 0.000005, 0.000005)
+
+process_data('data/2', 'x1.txt', 0.000005, 0.000005)
+process_data('data/2', 'cosx1.txt', 0.000005, 0.000005)
+process_data('data/2', 'cos2x1.txt', 0.000005, 0.000005)
+process_data('data/2', 'cos2_2x1.txt', 0.000005, 0.000005)
 

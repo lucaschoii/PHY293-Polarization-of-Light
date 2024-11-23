@@ -3,20 +3,19 @@ import matplotlib.pyplot as plt
 from lmfit import Model
 
 # Define the cosine function
-def sine_squared(x, I0, k, phi, b):
-    return I0 * np.sin(k * x + phi)**2 + b
+def cosine_squared(x, I0, k, phi, b):
+    return I0 * np.cos(k * x + phi)**2 + b
 
 # Load data
-file_path = 'data/2/processed/cos2x2.txt'
+file_path = 'data/1/processed/cos2_2x.txt'
 data = np.loadtxt(file_path, skiprows=1)  
 x = data[:, 0]
 y = data[:, 1]
 dx = data[:, 2]
 dy = data[:, 3]
-print(x)
 
 # Fit the data
-exercise_1_model = Model(sine_squared)
+exercise_1_model = Model(cosine_squared)
 params = exercise_1_model.make_params(I0=max(y), k=1, phi=0, b=0)
 result = exercise_1_model.fit(y, params, x=x, xerr=dx, yerr=dy)
 
@@ -31,7 +30,7 @@ residuals = y - result.eval(x=x)
 
 # Plot
 x_fine = np.linspace(min(x), max(x), 500)
-fitted_y = sine_squared(x_fine, I0_fit, k_fit, phi_fit, b_fit)
+fitted_y = cosine_squared(x_fine, I0_fit, k_fit, phi_fit, b_fit)
 fig, (ax_main, ax_residuals) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]}, sharex=True)
 
 # Main plot: Data and fit
