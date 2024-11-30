@@ -2,16 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from lmfit import Model
 
-xlabel = 'cos(θ)'
+xlabel = 'θ [rad]'
 ylabel = 'Light Intensity [V]'
-title = 'Light Intensity [V] vs cos(θ)'
+title = 'Light Intensity [V] vs θ [rad] (3 Polarizers)'
 
 # Define the cosine function
 def cosine(x, a, k, phi, b):
-    return a * np.cos(k * x + phi) + b
+    return a * np.cos(k * x + phi)**2 + b
 
 # Load data
-file_path = 'data/1/processed/cosx.txt'
+file_path = 'data/2/processed/x1.txt'
 data = np.loadtxt(file_path, skiprows=1)  
 x = data[:, 0]
 y = data[:, 1]
@@ -51,7 +51,7 @@ ax_main.errorbar(
 )
 
 ax_main.plot(x_fine, fitted_y, '-', 
-             label=f'Fit: $I = a \\cos(k  \\theta + \\phi) + b$', 
+             label=f'Fit: $I = a \\cos^{2}(k  \\theta + \\phi) + b$', 
              color='red')
 
 ax_main.set_title(title, fontsize=14)

@@ -2,29 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 from lmfit import Model
 
-xlabel = 'cos(θ)'
+xlabel = 'Sensor Position [°]'
 ylabel = 'Light Intensity [V]'
-title = 'Light Intensity [V] vs cos(θ)'
+title = 'No Polarizer: Light Intensity [V] vs Sensor Position [°]'
 
-# Define the cosine function
 def cosine(x, a, k, phi, b):
-    return a * np.cos(k * x + phi) + b
+    return a * np.arctan(k * np.radians(x) + phi) + b
 
 # Load data
-file_path = 'data/1/processed/cosx.txt'
+file_path = 'data/3/by_hand/no_polarizer.txt'
 data = np.loadtxt(file_path, skiprows=1)  
 x = data[:, 0]
 y = data[:, 1]
 dx = data[:, 2]
 dy = data[:, 3]
 
+print(f'Min Intensity {min(y)} @ {x[np.argmin(y)]}°')
+
 # Fit the data
 exercise_1_model = Model(cosine)
-params = exercise_1_model.make_params(a=max(y), k=1, phi=0, b=0)
+params = exercise_1_model.make_params(I0=max(y), k=1, phi=0, b=0)
 result = exercise_1_model.fit(y, params, x=x, xerr=dx, yerr=dy)
 
 # Extract the fitted parameters
-a_fit = result.params['a'].value
+I0_fit = result.params['I0'].value
 k_fit = result.params['k'].value
 phi_fit = result.params['phi'].value
 b_fit = result.params['b'].value
@@ -34,7 +35,7 @@ residuals = y - result.eval(x=x)
 
 # Plot
 x_fine = np.linspace(min(x), max(x), 500)
-fitted_y = cosine(x_fine, a_fit, k_fit, phi_fit, b_fit)
+fitted_y = cosine(x_fine, I0_fit, k_fit, phi_fit, b_fit)
 fig, (ax_main, ax_residuals) = plt.subplots(2, 1, figsize=(10, 8), gridspec_kw={'height_ratios': [3, 1]}, sharex=True)
 
 # Main plot: Data and fit
@@ -50,8 +51,9 @@ ax_main.errorbar(
     capsize=3          
 )
 
+ax_main.set_ylim(0, max(y)+ 0.1 * max(y))
 ax_main.plot(x_fine, fitted_y, '-', 
-             label=f'Fit: $I = a \\cos(k  \\theta + \\phi) + b$', 
+             label=f'Fit: $I = I_0 \\arctan(k  \\theta + \\phi) + b$', 
              color='red')
 
 ax_main.set_title(title, fontsize=14)

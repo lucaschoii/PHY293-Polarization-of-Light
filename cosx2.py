@@ -11,7 +11,7 @@ def cosine(x, a, k, phi, b):
     return a * np.cos(k * x + phi) + b
 
 # Load data
-file_path = 'data/1/processed/cosx.txt'
+file_path = 'data/2/processed/cosx1.txt'
 data = np.loadtxt(file_path, skiprows=1)  
 x = data[:, 0]
 y = data[:, 1]

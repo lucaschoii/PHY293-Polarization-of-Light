@@ -27,23 +27,17 @@ def process_data(directory, filename, x_uncertainty=0, y_uncertainty=0):
         os.makedirs(new_filename) 
 
 
-    if '1' in directory:
 
-        with open(f'{directory}/processed/{filename}', 'w') as f:
-            f.write('x\ty\tdx\tdy\n')
-            for i in range(len(data)):
-                
-                # if data[i][0] >= -0.000005:
-                f.write(f'{data[i][0]:.5f}\t{data[i][1]:.5f} \t{x_uncertainty:.6f}\t{y_uncertainty:.6f}')
-                if i != len(data) - 1:
-                    f.write('\n')
-    else:
-        with open(f'{directory}/processed/{filename}', 'w') as f:
-            f.write('x\ty\tdx\tdy\n')
-            for i in range(len(data)):
-                f.write(f'{data[i][0]:.5f}\t{data[i][1]:.5f} \t{x_uncertainty:.6f}\t{y_uncertainty:.6f}')
-                if i != len(data) - 1:
-                    f.write('\n')
+
+    with open(f'{directory}/processed/{filename}', 'w') as f:
+        f.write('x\ty\tdx\tdy\n')
+        for i in range(len(data)):
+            
+            f.write(f'{data[i][0]:.5f}\t{data[i][1]:.5f} \t{x_uncertainty:.6f}\t{y_uncertainty:.6f}')
+            
+            if i != len(data) - 1:
+                f.write('\n')
+
 
 
 
